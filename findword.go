@@ -6,66 +6,70 @@ func FindWord(sourcefile []byte, output []byte){
 	var widthOfString int
 	var widthOfletter int
 	var count int
-	// var endOfLetter int
-	var oneletter []byte
-	var allLetters [][]byte
-	var count8 int
-	fmt.Println(output)
+	var widthOfAllLetters []int
+	var newoutput []byte
 	for i:=0; i<len(output);i++{
-		if output[i] == 36 {
-			widthOfString = i
-			break
+		if output[i] != 36 {
+			newoutput = append(newoutput, output[i])
 		}
 	}
-	for i:=0;i<len(output);i++{
-		if output[i] == 32 {
-			for j:=i;j<len(output);j++{
-				if output[j] != 32 {
+	for i:=0; i<len(newoutput);i++{
+	if newoutput[i] == 10 && widthOfString == 0{
+		widthOfString = i
+	}
+}
+	for i:=0;i<widthOfString;i++{
+		if newoutput[i] == 32 {
+			for j:=i;j<len(newoutput);{
+				if newoutput[j] != 32 {
 					count = 0
 					break
 				} else {
 					count++
 					j= j+widthOfString+1
-					if count == 7 {
-						widthOfletter = i
-						fmt.Println(widthOfletter, "lett1")
-						// endOfLetter = j
+					if count == 8 {
+						widthOfletter = i+1
+						widthOfAllLetters = append(widthOfAllLetters, widthOfletter)
 						count = 0
 						break
 					}
-					continue
 				}
 			}
 		}
-		// fmt.Println(widthOfString, "str")
-		fmt.Println(widthOfletter, "lett2")
-		// fmt.Println(endOfLetter, "end")
-		if output[i] == 32 {
-		for k:=0;k<len(output);{
-		if count8 == 7 {
-			break
+	}
+	var oneLetter []byte
+	var nextLetter int
+	var rowLocation int
+	var numberofLines int
+	for i:=0;i<len(widthOfAllLetters);i++{
+		for k:=0;k<=7;k++{
+		for j:=0;j<(widthOfAllLetters[i]-nextLetter);j++{
+			l := j + (k*(widthOfString+1)) + nextLetter
+			if l < len(newoutput){
+			oneLetter = append(oneLetter, newoutput[l])}
+			}
+	oneLetter = append(oneLetter, 10)}
+	for m:=0;m<len(sourcefile);m++{
+		if sourcefile[m] == 10 {
+			numberofLines++
 		}
-		if k == widthOfletter {
-			k = k + widthOfString - widthOfletter		
-			// oneletter = append(oneletter, 10)
-			count8++
-			widthOfletter = widthOfletter + widthOfString
+		for n:=0;n<len(oneLetter);n++{
+			if m+n > len(sourcefile)-1{
+				break
+			}
+			if oneLetter[n] != sourcefile[m+n]{
+					break
+			}
+			if n>len(oneLetter)-2 {
+				rowLocation= ((numberofLines)/9)+32
+			}
 		}
-		oneletter = append(oneletter, output[k])
-		k++
 	}
-	count8 = 0
-	if oneletter != nil {
-	allLetters = append(allLetters, oneletter)
-	oneletter = []byte{}
-	i = i + widthOfString+2}
+	count = 0
+	numberofLines = 0
+	fmt.Print(string(rowLocation))
+	oneLetter = []byte{}
+	nextLetter=widthOfAllLetters[i] +nextLetter
 	}
-	
-}
-	fmt.Println(len(allLetters))
-	fmt.Println((allLetters[0]))
-	// fmt.Println(string(allLetters[2]))
-	for i:= 0;i<len(allLetters);i++{
-		fmt.Print(string(allLetters[i]))
-	}
+	fmt.Println()
 }

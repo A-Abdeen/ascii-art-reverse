@@ -20,7 +20,7 @@ func main() {
 	}
 	// file := os.Args[1] // Read char file & string argument
 	if len(os.Args) == 2 {
-		if os.Args[1][:10] == "--reverse=" {
+		if len(os.Args[1]) > 9 && os.Args[1][:10] == "--reverse=" {
 			outputFile = os.Args[1][10:]
 		} else {
 			rawInput = os.Args[1]
