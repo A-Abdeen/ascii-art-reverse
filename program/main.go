@@ -9,6 +9,7 @@ import (
 func main() {
 	var rawInput string
 	var outputFile string
+	var standardfile []byte
 	// Check if input is correct
 	if len(os.Args) > 2 {
 		fmt.Println("Too many arguments")
@@ -31,6 +32,11 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	for i:=0;i<len(sourceFile);i++{
+		if sourceFile[i] != 13{
+			standardfile = append(standardfile, sourceFile[i])
+		}
+	}
 	if rawInput != "" {
 	// Main function: Splitting (split string based on newline position)
 	// ∟--> Sub function: Formatting (change input to allow use of newline & qoutation marks)
@@ -38,13 +44,13 @@ func main() {
 
 	// Main function: Printing (printing the row of characters within input string)
 	// ∟--> Sub function: Parsing (parsing the data of the 8 rows to print sequentially)
-	asciiart.RowPrinter(splitInput, sourceFile, asciiart.RowParser)} else {
+	asciiart.RowPrinter(splitInput, standardfile, asciiart.RowParser)} else {
 		output, err := os.ReadFile(outputFile)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-	asciiart.FindWord(sourceFile, output)
+	asciiart.FindWord(standardfile, output)
 		
 	}
 
