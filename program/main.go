@@ -12,11 +12,11 @@ func main() {
 	var standardfile []byte
 	// Check if input is correct
 	if len(os.Args) > 2 {
-		fmt.Println("Too many arguments")
+		fmt.Println("Usage: go run . [OPTION]\n\nEX: go run . --reverse=<fileName>")
 		return
 	} 
 	if len(os.Args) < 2 {
-		fmt.Println("Input string missing")
+		fmt.Println("Usage: go run . [OPTION]\n\nEX: go run . --reverse=<fileName>")
 		return
 	}
 	// file := os.Args[1] // Read char file & string argument
