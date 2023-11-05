@@ -23,14 +23,34 @@ func FindWord(sourcefile []byte, output []byte) {
 	var count int
 	var widthOfAllLetters []int
 		if h > 0 { // if it is the first time over the loop no need for \n 
+			newoutput = []byte{}
+			var count int
+			newLine2 := 8
 			fmt.Print("\\")
 			fmt.Print("n")
-		}
+			for i := 0; i < len(output); i++ {   
+			
+			if newLine2 > (7+(9*h)) && output[i] != 13 && output[i] != 36{
+			newoutput = append(newoutput, output[i])
+			if output[i] == 10 {
+				count++
+			}} 
+			if output[i] == 10 { 
+				newLine2++
+			}
+			
+			if count > 7 {
+				break
+			}
+		}	
+		// fmt.Println((string(newoutput)))
+	}
 		for i := 0; i < len(newoutput); i++ {
 			if newoutput[i] == 10 && widthOfString == 0 {
 				widthOfString = i
 			}
 		}
+		// fmt.Println(widthOfString)
 		for i := 0; i < widthOfString; i++ {
 			if newoutput[i] == 32 { // if a space is found check the next 8 lines if there are all spaces means it is one character
 				for j := i; j < len(newoutput); {
